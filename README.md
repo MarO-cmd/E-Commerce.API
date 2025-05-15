@@ -1,93 +1,127 @@
 # Store System
 
+[![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-6.0-blue.svg)](https://dotnet.microsoft.com/en-us/apps/aspnet)
+[![C#](https://img.shields.io/badge/C%23-10.0-purple.svg)](https://dotnet.microsoft.com/)
+[![EF Core](https://img.shields.io/badge/EF%20Core-6.0-green.svg)](https://docs.microsoft.com/en-us/ef/core/)
+[![Redis](https://img.shields.io/badge/Redis-Cache-red.svg)](https://redis.io/)
+[![JWT](https://img.shields.io/badge/JWT-Auth-orange.svg)](https://jwt.io/)
+
 ## Overview
-Store System is a comprehensive e-commerce backend API built with ASP.NET Core Web API. This project implements modern software architecture patterns and technologies.
+
+Store System is a comprehensive e-commerce backend API built with ASP.NET Core Web API. This project was developed as part of my learning journey, implementing modern software architecture patterns and technologies.
 
 ## Features
-- **Product Browsing**: View all store products
-- **Filtering**: Filter by product type or brand
-- **Shopping Basket**: Create and manage baskets
-- **Checkout System**: Complete orders with payment options
-- **Online Payments**: Stripe integration
-- **User Authentication**: JWT-based auth with ASP.NET Core Identity
+
+* **Product Browsing**: Users can view all products available in the store
+* **Filtering**: Get products by type or brand
+* **Shopping Basket**: Create and manage shopping baskets
+* **Checkout System**: Complete orders with different payment options
+* **Online Payments**: Integrated with Stripe for secure online payments
+* **User Authentication**: JWT-based authentication using ASP.NET Core Identity
 
 ## Technical Implementation
-- **Architecture**: Onion (Clean) Architecture
-- **Design Patterns**:
-  - Generic Repository
-  - Unit of Work
-  - Specification
-- **Performance**:
-  - Redis caching
-  - Response caching
-  - Pagination
-- **Security**:
-  - JWT Authentication
-  - ASP.NET Core Identity
-- **Error Handling**: Custom middleware
+
+* **Architecture**: Onion (Clean) Architecture
+* **Design Patterns**:
+   * Generic Repository Pattern
+   * Unit of Work Pattern
+   * Specification Pattern
+* **Performance Optimization**:
+   * Redis caching for basket storage
+   * Response caching for frequently requested endpoints
+   * Pagination for large data sets
+* **Security**:
+   * JWT Authentication
+   * ASP.NET Core Identity
+* **Error Handling**: Custom middleware for global exception handling
 
 ## Installation
 
 ### Prerequisites
-- .NET 6.0 SDK+
-- SQL Server
-- Redis server
-- Stripe account
+* .NET 6.0 SDK or later
+* SQL Server (or alternative compatible database)
+* Redis server
+* Stripe account for payment processing
 
 ### Steps
-1. Clone repository:
-```bash
+1. **Clone the repository**
+
+```
 git clone https://github.com/MarO-cmd/Store.API.git
 cd StoreSystem
-Update appsettings.json:
+```
 
-json
+2. **Update the connection strings**
+In `appsettings.json`, update the connection strings for your database and Redis:
+
+```json
 "ConnectionStrings": {
-  "DefaultConnection": "Server=your_server;Database=StoreSystem;Trusted_Connection=True;",
+  "DefaultConnection": "Server=your_server;Database=StoreSystem;Trusted_Connection=True;MultipleActiveResultSets=true",
   "Redis": "localhost:6379"
-},
-"StripeSettings": {
-  "PublishableKey": "your_key",
-  "SecretKey": "your_key"
 }
-Apply migrations:
+```
 
-bash
+3. **Set up Stripe API keys**
+In `appsettings.json`, add your Stripe API keys:
+
+```json
+"StripeSettings": {
+  "PublishableKey": "your_publishable_key",
+  "SecretKey": "your_secret_key"
+}
+```
+
+4. **Apply database migrations**
+
+```
 dotnet ef database update
-Run:
+```
 
-bash
+5. **Run the application**
+
+```
 dotnet run
-API Endpoints
-Accounts
-POST /api/Accounts/login - Login
+```
 
-POST /api/Accounts/register - Register
+## API Endpoints
 
-GET /api/Accounts/getcurrentuser - Current user info
+### Accounts
+* `POST /api/Accounts/login` - User login
+* `POST /api/Accounts/register` - User registration
+* `GET /api/Accounts/getcurrentuser` - Get current user information
+* `GET /api/Accounts/getaddress` - Get user's address
+* `PUT /api/Accounts/updateaddress` - Update user's address
 
-Baskets
-GET /api/Baskets - Get basket
+### Baskets
+* `GET /api/Baskets` - Get the current user's basket
+* `POST /api/Baskets` - Create or update a basket
+* `DELETE /api/Baskets` - Delete a basket
 
-POST /api/Baskets - Update basket
+### Orders
+* `GET /api/Orders` - Get user's orders
+* `GET /api/Orders/{id}` - Get a specific order
+* `POST /api/Orders` - Create a new order
+* `GET /api/Orders/DeliveryMethods` - Get available delivery methods
 
-DELETE /api/Baskets - Delete basket
+### Payments
+* `POST /api/Payments/{basketId}` - Process a payment for a specific basket
 
-Orders
-GET /api/Orders - Get orders
+### Products
+* `GET /api/Products` - Get all products (with pagination)
+* `GET /api/Products/{id}` - Get a specific product
+* `GET /api/Products/brands` - Get all product brands
+* `GET /api/Products/types` - Get all product types
 
-POST /api/Orders - Create order
+## Error Handling
 
-Products
-GET /api/Products - Get all products
+The application uses a custom exception middleware that catches all exceptions and returns appropriate HTTP status codes and error messages.
 
-GET /api/Products/{id} - Get product by ID
+## Acknowledgments
 
-Error Handling
-Custom middleware handles all exceptions with appropriate HTTP status codes.
+This project was developed as part of my learning journey in ASP.NET Core and modern web API development.
 
-Contact
-GitHub: MarO-cmd
+## Contact
 
-Email: maroasd33@gmail.com
-
+- GitHub: [MarO-cmd](https://github.com/MarO-cmd)
+- LinkedIn: [Marcellino Adel](https://www.linkedin.com/in/marcellino-adel-752b17235/)
+- Email: maroasd33@gmail.com
