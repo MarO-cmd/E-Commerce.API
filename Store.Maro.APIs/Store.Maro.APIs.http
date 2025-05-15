@@ -1,0 +1,6 @@
+@Store.Maro.APIs_HostAddress = http://localhost:5232
+
+GET {{Store.Maro.APIs_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

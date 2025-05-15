@@ -1,0 +1,30 @@
+﻿using Store.Maro.Core.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Principal;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Store.Maro.Core.Specifications
+{
+    public interface ISpecifications<TEntity, TKey> where TEntity : BaseEntity<TKey>
+    {
+        // (p.id == id && .... || ....)
+        public Expression<Func<TEntity, bool>> Criteria { get; set; }
+
+        // (include(p => p.type , p.brand ) nav prop
+        public List<Expression<Func<TEntity, object>>> Includes { get; set; }
+
+        public Expression<Func<TEntity,object>> OrderBy { get; set; }
+        public Expression<Func<TEntity,object>> OrderByDesc { get; set; }
+
+        public int Take { get; set; }
+        public int Skip { get; set; }
+
+        public bool IsPagination { get; set; }
+
+
+    }
+}
