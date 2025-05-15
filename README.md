@@ -47,7 +47,7 @@ Store System is a comprehensive e-commerce backend API built with ASP.NET Core W
 1. **Clone the repository**
 
 ```
-git clone https://github.com/MarO-cmd/Store.API.git
+git clone https://github.com/MarO-cmd/E-Commerce.API.git
 cd StoreSystem
 ```
 
